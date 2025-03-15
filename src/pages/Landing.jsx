@@ -2,65 +2,107 @@ import React from "react";
 import Footer from "../components/Footer"; // Footer Component
 import { FaSearch, FaMicrophone, FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Icons - Search,Microphone,Left Arrow,Right Arrow
 import { motion } from "framer-motion"; // Animation
+import doc from "../assets/doc.png"
 import { Swiper, SwiperSlide } from "swiper/react"; // Swiper
 import { Navigation } from "swiper/modules"; // Navigation
 import "swiper/css"; // Swiper CSS
 import "swiper/css/navigation"; // Navigation CSS
 import AOS from "aos"; // Animation on Scroll
-import { Bot, Salad,MapPin,PowerOff,ClipboardPlus,ShoppingCart, Star } from 'lucide-react'; // Icons for Features Card
+import { Bot, TriangleAlert, MapPin, PowerOff, ClipboardPlus, ShoppingCart, Star } from 'lucide-react'; // Icons for Features Card
 import pic1 from "../assets/PIC1.png" // Image
 import Navbar from "../components/Navbar"; // Navbar Component
-import { useEffect } from "react"; // UseEffect Hook
+import { useEffect, useState } from "react"; // UseEffect Hook
+import { useNavigate, Link } from "react-router-dom";
+
+// Product Data -Product image,Product name and Product description
+export const products = [
+  {
+    img: "https://cdn.ralali.id/assets/img/Libraries/AND-UA-621-Tensimeter-Digital-Alat-Ukur-Tekanan-Darah_rXkpETtFY6yHAOdC_1632298852.png",
+    name: "Tensimeter",
+    reviews: '4',
+    icon: "https://tse3.mm.bing.net/th?id=OIP.EbSkIWGHL2XlY1Nz7hWEvwHaHa&pid=Api&P=0&h=180",
+    discount: '60% Off',
+    delivery: 'Free Delivery',
+    description: "A Tensimeter is an instrument used to compare the vapour pressures of two liquids, usually consisting of two sealed bulbs containing the liquids, each being connected to one limb of a manometer. "
+  },
+  {
+    img: "https://5.imimg.com/data5/YV/CC/PC/SELLER-3766416/infinity-digital-thermometer-500x500.jpg",
+    name: "Thermometer",
+    icon: "https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/07/medical-logo.jpg",
+    reviews: '3.5',
+    discount: '40% Off',
+    delivery: 'Free Delivery',
+    description: "A Thermometer is a device that measures temperature or temperature gradient. It has two elements: a temperature sensor and some means of converting this into a numerical value."
+  },
+  {
+    img: "https://m.media-amazon.com/images/I/61vQYB662CL.jpg",
+    name: "Glucometer",
+    icon: "https://tse2.mm.bing.net/th?id=OIP.83pmKeI9mIjyOvAd5SSm2AHaD4&pid=Api&P=0&h=180",
+    reviews: '4.5',
+    discount: '50% Off',
+    delivery: 'Free Delivery',
+    description: "A Glucometer is a medical device for determining the approximate concentration of glucose in the blood. It can also be a strip of glucose paper dipped into a substance and measured to the glucose chart."
+  },
+  {
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdhyK1H45ScLm4TkNG-BkApvz5iuL4EskpzQ&s",
+    name: "Nebulizers",
+    icon: "https://static.vecteezy.com/system/resources/previews/016/471/452/original/abstract-modern-ecommerce-logo-ecommerce-logo-design-shop-logo-design-template-creative-ecommerce-logo-vector.jpg",
+    reviews: '4.1',
+    discount: '55% Off',
+    delivery: 'Free Delivery',
+    description: "A nebulizer is a machine that turns liquid medicine into gas that can be easily inhaled. We sit with the machine and breathe in the medicine through a connected facemask which allows the medicine to enter the lungs."
+  },
+  {
+    img: "https://5.imimg.com/data5/FJ/BY/MY-46244278/body-weighing-scale-2.jpg",
+    name: "Body Weight Scale",
+    icon: "https://tse1.mm.bing.net/th?id=OIP.8B1i4ujGuFAzgHAYpsPx5wAAAA&pid=Api&P=0&h=180",
+    reviews: '4.2',
+    discount: '50% Off',
+    delivery: 'Free Delivery',
+    description: "Body Weight Scale is a scale or balance is a device used to measure weight or mass. These are also known as mass scales, weight scales, mass balances, massometers, and weight balances. "
+  },
+  {
+    img: "https://m.media-amazon.com/images/I/61hApWyohdS._AC_UY1100_.jpg",
+    name: "Face Masks",
+    icon: "https://cdn2.f-cdn.com/contestentries/2180672/59137620/6380d24112b30_thumb900.jpg",
+    reviews: '3.8',
+    discount: '40% Off',
+    delivery: 'Free Delivery',
+    description: "Wearing a high-quality mask that fits well and has good filtration helps to protect you. It helps to protect you from breathing in viruses, wildfire smoke, and other particles or germs in the air."
+  },
+  {
+    img: "https://m.media-amazon.com/images/I/51Bks8zqRiL._AC_UF1000,1000_QL80_.jpg",
+    name: "First Aid Kit",
+    icon: "https://mir-s3-cdn-cf.behance.net/project_modules/fs/93993a117745253.607be21513a3f.jpg",
+    reviews: '3.9',
+    discount: '40% Off',
+    delivery: 'Free Delivery',
+    description: " It includes items like sterile gauze dressings, a roller gauze bandage, disposable sterile gloves, tweezers, scissors, antiseptic wipes, tape, a small eyewash bottle, adhesive band-aids, and first aid instructions. "
+  },
+  {
+    img: "https://images.meesho.com/images/products/282799324/jw3b2_512.webp",
+    name: "Humidifiers",
+    icon: "https://cdn6.f-cdn.com/contestentries/1127135/23569535/59b17eb58e9ab_thumb900.jpg",
+    discount: '43% Off',
+    reviews: '3.6',
+    delivery: 'Free Delivery',
+    description: "Humidifiers are devices that add moisture to the air to prevent dryness that can cause irritation in many parts of the body. They can also ease some symptoms caused by the flu or common cold."
+  },
+];
 
 const LandingPage = () => {
+  const navigate = useNavigate()
+  const [showChatbot, setShowChatbot] = useState(false);
+
+  const handleStartClick = () => {
+    setShowChatbot(true);
+    navigate('/chat')
+  };
+
   // AOS Animation
   useEffect(() => {
     AOS.init({ duration: 1200 });
   }, []);
-
-  // Product Data -Product image,Product name and Product description
-  const products = [
-    {
-      img: "https://cdn.ralali.id/assets/img/Libraries/AND-UA-621-Tensimeter-Digital-Alat-Ukur-Tekanan-Darah_rXkpETtFY6yHAOdC_1632298852.png",
-      name: "Tensimeter",
-      description: "A Tensimeter is an instrument used to compare the vapour pressures of two liquids, usually consisting of two sealed bulbs containing the liquids, each being connected to one limb of a manometer. "
-    },
-    {
-      img: "https://5.imimg.com/data5/YV/CC/PC/SELLER-3766416/infinity-digital-thermometer-500x500.jpg",
-      name: "Thermometer",
-      description: "A Thermometer is a device that measures temperature or temperature gradient. It has two elements: a temperature sensor and some means of converting this into a numerical value."
-    },
-    {
-      img: "https://m.media-amazon.com/images/I/61vQYB662CL.jpg",
-      name: "Glucometer",
-      description: "A Glucometer is a medical device for determining the approximate concentration of glucose in the blood. It can also be a strip of glucose paper dipped into a substance and measured to the glucose chart."
-    },
-    {
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdhyK1H45ScLm4TkNG-BkApvz5iuL4EskpzQ&s",
-      name: "Nebulizers",
-      description: "A nebulizer is a machine that turns liquid medicine into gas that can be easily inhaled. We sit with the machine and breathe in the medicine through a connected facemask which allows the medicine to enter the lungs."
-    },
-    {
-      img: "https://5.imimg.com/data5/FJ/BY/MY-46244278/body-weighing-scale-2.jpg",
-      name: "Body Weight Scale",
-      description: "Body Weight Scale is a scale or balance is a device used to measure weight or mass. These are also known as mass scales, weight scales, mass balances, massometers, and weight balances. "
-    },
-    {
-      img: "https://m.media-amazon.com/images/I/61hApWyohdS._AC_UY1100_.jpg",
-      name: "Face Masks",
-      description: "Wearing a high-quality mask that fits well and has good filtration helps to protect you. It helps to protect you from breathing in viruses, wildfire smoke, and other particles or germs in the air."
-    },
-    {
-      img: "https://m.media-amazon.com/images/I/51Bks8zqRiL._AC_UF1000,1000_QL80_.jpg",
-      name: "First Aid Kit",
-      description: " It includes items like sterile gauze dressings, a roller gauze bandage, disposable sterile gloves, tweezers, scissors, antiseptic wipes, tape, a small eyewash bottle, adhesive band-aids, and first aid instructions. "
-    },
-    {
-      img: "https://images.meesho.com/images/products/282799324/jw3b2_512.webp",
-      name: "Humidifiers",
-      description:"Humidifiers are devices that add moisture to the air to prevent dryness that can cause irritation in many parts of the body. They can also ease some symptoms caused by the flu or common cold."
-    },
-  ];
 
   // Feature Card Component - The card which shows Features They Provide
   const FeatureCard = ({ icon, title, description, className = '' }) => (
@@ -92,16 +134,14 @@ const LandingPage = () => {
             for all your dietary <p className="text-black text-[40px]">needs.</p>
           </h1>
           {/* AI Chat */}
-          <button className="bg-blue-600 flex flex-row items-center justify-center mt-3 ml-10 p-3 w-[300px] text-center font-serif rounded-full hover:bg-black text-white">
-            <Star className="text-white mr-2"/> Let's Start</button>
+          <button onClick={handleStartClick} className="bg-blue-600 flex flex-row items-center justify-center mt-3 ml-10 p-3 w-[300px] text-center font-serif rounded-full hover:bg-black text-white">
+            <Star className="text-white mr-2" /> Let's Start</button>
         </div>
         {/* Right Side Illustration */}
         <div className="flex flex-row mt-10 md:mt-0 space-x-4">
           {/* First Image - Bounce & Fade-in Animation */}
-          <motion.img
-            src="https://img.freepik.com/premium-vector/doctor-showing-good-diagnosis-physician-with-paper-document-form-with-success-results-report_101884-660.jpg"
-            alt="Doctor" className="w-full md:w-[400px] rounded-lg shadow-lg" initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }} whileHover={{ scale: 1.05, rotate: 2 }} />
+          <motion.img src={doc} alt="Doctor" className="w-full md:w-[400px] rounded-lg shadow-lg" initial={{ x: 100, opacity: 0 }} 
+          animate={{ x: 0, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} whileHover={{ scale: 1.05, rotate: 2 }} />
           {/* Second Image - Swipe & Floating Animation */}
           <motion.img src={pic1} alt="Doctor Illustration" className="w-full md:w-[400px] rounded-lg shadow-lg" initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }} whileHover={{ scale: 1.05, rotate: 2 }} />
@@ -122,11 +162,11 @@ const LandingPage = () => {
             {/* Food Recommendation Feature */}
             <FeatureCard
               icon={
-                <Salad className="w-12 h-14 relative text-green-500" />
+                <TriangleAlert className="w-12 h-14 relative text-yellow-500" />
               }
-              title="Food Recommendation" className="text-green-500 shadow-xl shadow-blue-500"
-              description="We provide food recommendation according to your calorie requirements." />
-            {/* Chatbot Feature */}
+              title="Precautions Recommended" className="text-yellow-500 shadow-xl shadow-blue-500"
+              description="We provide you with recommended precautions to be taken and tips for your disease. " />
+            {/* Chatbot Feature*/}
             <FeatureCard
               icon={
                 <Bot className="w-16 h-16 text-red-500" />
@@ -135,8 +175,8 @@ const LandingPage = () => {
               description="Solve your queries or helath issues by interacting with our bot in your relaxable languages." />
             {/* Mapping Feature */}
             <FeatureCard
-              icon={<MapPin className="w-12 h-12 text-yellow-500" />}
-              title="Healthcare Center Mapping" className="text-yellow-500 shadow-xl shadow-blue-500"
+              icon={<MapPin className="w-12 h-12 text-green-500" />}
+              title="Healthcare Center Mapping" className="text-green-500 shadow-xl shadow-blue-500"
               description="We suggests nearby clinics, doctors and medical stores based on your GPS location and budget." />
             {/* Power Feature */}
             <FeatureCard
@@ -177,11 +217,13 @@ const LandingPage = () => {
             modules={[Navigation]} className="py-5">
             {products.map((product, index) => (
               <SwiperSlide key={index}>
-                <div data-aos="zoom-in" className="bg-white shadow-lg rounded-xl p-3">
-                  <img src={product.img} alt={product.name} className="rounded-lg w-full h-52 object-cover"/>
-                  <h3 className="font-semibold text-black text-[20px] mt-3">{product.name}</h3>
-                  <h3 className="font-serif text-black text-[15px] mt-3">{product.description}</h3>
-                </div>
+                <Link to={`/product/${product.name}`} state={{ product }}>
+                  <div data-aos="zoom-in" className="bg-white shadow-lg rounded-xl p-3">
+                    <img src={product.img} alt={product.name} className="rounded-lg w-full h-52 object-cover" />
+                    <h3 className="font-semibold text-black text-[20px] mt-3">{product.name}</h3>
+                    <h3 className="font-serif text-black text-[15px] mt-3">{product.description}</h3>
+                  </div>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -196,7 +238,7 @@ const LandingPage = () => {
       </div>
       {/* Footer */}
       <Footer />
-    </div>
+    </div >
   );
 };
 
