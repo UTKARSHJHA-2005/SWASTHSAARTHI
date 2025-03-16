@@ -15,7 +15,7 @@ const Navbar = () => {
       {/* Logo Section */}
       <div data-aos="fade-left" className="flex items-center gap-3">
         <img src={logo} alt="SwathSarthi Logo" className="h-9 w-9" />
-        <span className="text-[22px] font-bold font-serif text-blue-700 tracking-tight">SWASTHSARTHI</span>
+        <span className="text-[22px] font-bold font-serif text-blue-700 tracking-tight">SWASTHSAARTHI</span>
       </div>
       {/* Navigation Links */}
       <div data-aos="slide-up" className="hidden md:flex gap-6 text-gray-800 text-[17px]">

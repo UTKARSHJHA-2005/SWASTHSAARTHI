@@ -16,7 +16,7 @@ const Footer = () => {
         {/* Logo & Social Links */}
         <div data-aos="fade-right" className="max-w-xs">
           <img src={logo} alt="Swathsarthi Logo" className="h-16 w-16 mb-2" />
-          <h2 className="text-2xl font-serif font-bold text-blue-700">SWASTHSARTHI</h2>
+          <h2 className="text-2xl font-serif font-bold text-blue-700">SWASTHSAARTHI</h2>
           <div className="flex gap-3 text-blue-700 mt-3">
             {[FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube].map((Icon, index) => (
               <Icon key={index} className="cursor-pointer hover:text-blue-900 transition" />
