@@ -134,7 +134,7 @@ const LandingPage = () => {
             for all your dietary <p className="text-black text-[40px]">needs.</p>
           </h1>
           {/* AI Chat */}
-          <button onClick={handleStartClick} className="bg-blue-600 flex flex-row items-center justify-center mt-3 ml-10 p-3 w-[300px] text-center font-serif rounded-full hover:bg-black text-white">
+          <button onClick={handleStartClick} className="bg-blue-600 flex flex-row items-center justify-center mt-3 ml-10 p-3 w-[300px] text-center font-serif rounded-full hover:bg-green-500 text-white">
             <Star className="text-white mr-2" /> Let's Start</button>
         </div>
         {/* Right Side Illustration */}
@@ -218,7 +218,7 @@ const LandingPage = () => {
             {products.map((product, index) => (
               <SwiperSlide key={index}>
                 <Link to={`/product/${product.name}`} state={{ product }}>
-                  <div data-aos="zoom-in" className="bg-white shadow-lg rounded-xl p-3">
+                  <div data-aos="zoom-in" className="bg-white shadow-lg rounded-xl p-3 border-green-400 border-2 shadow-green-400">
                     <img src={product.img} alt={product.name} className="rounded-lg w-full h-52 object-cover" />
                     <h3 className="font-semibold text-black text-[20px] mt-3">{product.name}</h3>
                     <h3 className="font-serif text-black text-[15px] mt-3">{product.description}</h3>
