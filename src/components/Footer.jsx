@@ -1,11 +1,14 @@
+// Footer component
 import React, { useEffect } from "react";
+// Icons
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import { HiMail, HiPhone, HiLocationMarker } from "react-icons/hi";
-import logo from "../assets/logo.png";
-import Aos from "aos";
+import logo from "../assets/logo.png"; // Image
+import Aos from "aos"; // Animations
 import "aos/dist/aos.css";
 
 const Footer = () => {
+  // Animation on component mount
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
@@ -24,7 +27,7 @@ const Footer = () => {
           </div>
         </div>
         {/* Footer Sections */}
-        <div data-aos="zoom-in" className="grid grid-cols-2 ml-2 md:grid-cols-4 gap-2 text-gray-700 text-[20px]">
+        <div data-aos="zoom-in" className="grid grid-cols-2 ml-2 md:grid-cols-4 gap-1 text-gray-700 text-[20px]">
           {[
             { title: "Product", links: ["Features", "Pricing", "Case studies", "Reviews", "Updates"] },
             { title: "Company", links: ["About", "Contact us", "Careers", "Culture", "Blog"] },

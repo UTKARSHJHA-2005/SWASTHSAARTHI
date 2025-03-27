@@ -1,6 +1,7 @@
+// The page which will be shown to the user firstly.
 import React from "react";
 import Footer from "../components/Footer"; // Footer Component
-import { FaSearch, FaMicrophone, FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Icons - Search,Microphone,Left Arrow,Right Arrow
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Icons - Search,Microphone,Left Arrow,Right Arrow
 import { motion } from "framer-motion"; // Animation
 import doc from "../assets/doc.png"
 import { Swiper, SwiperSlide } from "swiper/react"; // Swiper
@@ -12,7 +13,8 @@ import { Bot, TriangleAlert, MapPin, PowerOff, ClipboardPlus, ShoppingCart, Star
 import pic1 from "../assets/PIC1.png" // Image
 import Navbar from "../components/Navbar"; // Navbar Component
 import { useEffect, useState } from "react"; // UseEffect Hook
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom"; // Navigating to page
+import { Link,Element } from "react-scroll"; // Navigating to element
 
 // Product Data -Product image,Product name and Product description
 export const products = [
@@ -94,6 +96,7 @@ const LandingPage = () => {
   const navigate = useNavigate()
   const [showChatbot, setShowChatbot] = useState(false);
 
+  // Function to navigate to AI chatbot
   const handleStartClick = () => {
     setShowChatbot(true);
     navigate('/chat')
@@ -148,6 +151,7 @@ const LandingPage = () => {
         </div>
       </section>
       {/* Features Section */}
+      <Element name="Features">
       <div className=" min-h-[600px] p-8">
         <div className="max-w-6xl mx-auto">
           <p data-aos="flip-up" className="text-blue-500 font-bold text-4xl mb-12">
@@ -195,7 +199,9 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
+      </Element>
       {/* Help Topics Section */}
+      <Element name="product">
       <div className=" min-h-[600px] px-6 md:px-20 py-10">
         {/* Header */}
         <p data-aos="flip-left" className="text-blue-600 font-bold text-[30px] uppercase tracking-wide">
@@ -235,7 +241,9 @@ const LandingPage = () => {
             <FaChevronRight />
           </button>
         </div>
+        <button className="bg-blue-600 text-white h-10 w-[200px] rounded-lg p-2 mt-[10px] ml-[580px] hover:bg-black min-w-screen">View All Products</button>
       </div>
+      </Element>
       {/* Footer */}
       <Footer />
     </div >

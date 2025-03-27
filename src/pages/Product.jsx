@@ -1,9 +1,11 @@
-import { useLocation } from 'react-router-dom';
+// This is the Product Page where user sees the rices of products from different sites.
+import { useLocation } from 'react-router-dom'; // UseLocation Hook
 import React from "react";
 
 const Product = () => {
   const location = useLocation();
-  const { product } = location.state || {};
+  const { product } = location.state || {}; // Taking data from product state
+  // Products: title,price,seller,discount,delivery,sellerLogo
   const products = [
     {
       title: `${product.name}`,
@@ -54,6 +56,7 @@ const Product = () => {
       sellerLogo: "https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/0022/3632/brand.gif?itok=-GBQhFCC",
     },
   ];
+  // If no product
   if (!product) {
     return <p className="text-center text-gray-500 mt-4">No product details available</p>;
   }
@@ -61,6 +64,7 @@ const Product = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen" style={{ background: 'radial-gradient(circle, blue, beige)' }}>
       <div className="p-6 bg-white shadow-lg shadow-blue-200 rounded-lg border border-gray-500">
+        {/* Product Details from less price site */}
         <div className="flex flex-row">
           <div className="w-[300px] h-64">
             <img src={product.img} alt={product.name} className="w-full h-64 object-cover border border-black rounded-lg" />
@@ -80,6 +84,7 @@ const Product = () => {
           </div>
         </div>
       </div>
+      {/* Product Detalis from other sites */}
       <div className="grid grid-cols-1 w-[1200px] md:grid-cols-2 gap-4 p-6">
         {products.map((product, index) => (
           <div key={index}
