@@ -1,8 +1,9 @@
 import './App.css'
+// Pages
 import Chat from './pages/Chat'
 import Landing from './pages/Landing'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Product from './pages/Product'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom' // Routing
 
 function App() {
 

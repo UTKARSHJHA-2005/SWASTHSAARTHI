@@ -1,5 +1,6 @@
+// Navbar Component
 import React, { useState, useEffect } from "react";
-import { Link } from "react-scroll";
+import { Link } from "react-scroll"; // Link for component
 import logo from "../assets/logo.png"; // Logo
 import aos from "aos"; // Animation On Scroll
 import "aos/dist/aos.css"; // Animation On Scroll CSS

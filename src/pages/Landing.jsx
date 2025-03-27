@@ -14,7 +14,7 @@ import pic1 from "../assets/PIC1.png" // Image
 import Navbar from "../components/Navbar"; // Navbar Component
 import { useEffect, useState } from "react"; // UseEffect Hook
 import { useNavigate} from "react-router-dom"; // Navigating to page
-import { Link,Element } from "react-scroll"; // Navigating to element
+import { Link,Element } from "react-scroll"; // Navigating to componenet
 
 // Product Data -Product image,Product name and Product description
 export const products = [
