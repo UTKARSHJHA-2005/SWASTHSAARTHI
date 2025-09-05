@@ -7,7 +7,7 @@ It is designed to make health support **accessible, inclusive, and available 24/
 🤝 Conversational AI for health & wellness queries  <br/>
 ⏰ 24/7 availability  <br/>
 🔒 Privacy-focused and secure<br/> 
-📱 Easy integration with apps, websites, or platforms
+📱 Easy integration with apps, websites, or platforms   <br/>
 <br/>
 🛠 <strong>Tech Stack</strong> <br/>
 Frontend: React.js (with Vite), Tailwind CSS.<br/>
