@@ -6,7 +6,7 @@ It is designed to make health support **accessible, inclusive, and available 24/
 🌍 Multilingual support (speak to users in their own language)  <br/>
 🤝 Conversational AI for health & wellness queries  <br/>
 ⏰ 24/7 availability  <br/>
-🔒 Privacy-focused and secure <br/>  
+🔒 Privacy-focused and secure 
 📱 Easy integration with apps, websites, or platforms<br/>
 <br/>
 🛠 <strong>Tech Stack</strong> <br/>
