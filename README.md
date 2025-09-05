@@ -19,6 +19,7 @@ Machine Learning: NLLB-200-Distilled,Random Forest.<br/>
 2)Node.js (v16+ recommended) <br/>
 3)Firebase <br/>
 4)Python <br/>
+5)Gemini <br/>
 <br/>
 <strong>Installation And Setup</strong><br/>
 1) Clone the Repository<br/>
@@ -49,14 +50,14 @@ Machine Learning: NLLB-200-Distilled,Random Forest.<br/>
    ```
    (for frontend)
    ```
-   cd frontend
+   cd src
    npm install
    ```
    <br/>
 6) Run the server <br/>
    (for frontend) <br/>
    ```
-   cd frontend
+   cd src
    npm run dev
    ```
    (for backend-work) <br/>
@@ -64,3 +65,4 @@ Machine Learning: NLLB-200-Distilled,Random Forest.<br/>
    cd backend-work
    uvicorn app.main:app --host 0.0.0.0 --port 10000 --reload
    ```
+   The server will start at: http://localhost:10000
