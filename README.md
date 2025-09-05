@@ -13,3 +13,55 @@ It is designed to make health support **accessible, inclusive, and available 24/
 Frontend: React.js (with Vite), Tailwind CSS.<br/>
 Backend Setup: Firebase,FastAPI.<br/>
 Machine Learning: NLLB-200-Distilled,Random Forest.<br/>
+<br/>
+🔧 <strong>Prerequisites</strong> <br/>
+1)Vite With TailwindCSS <br/>
+2)Node.js (v16+ recommended) <br/>
+3)Firebase <br/>
+4)Python <br/>
+<br/>
+<strong>Installation And Setup</strong><br/>
+1) Clone the Repository<br/>
+   ```
+   git clone https://github.com/UTKARSHJHA-2005/SWASTHSAARTHI.git
+   cd SWASTHSAARTHI
+   ```
+   <br/>
+2) Create a Virtual Enviroment (for backend)
+   ```
+   cd backend-work
+   python -m venv venv
+   ```
+   <br/>
+   source venv/bin/activate  # On macOS/Linux <br/>
+   venv\Scripts\activate      # On Windows <br/>
+   <br/>
+4) env for backend<br/>
+   ```
+    GEMINI_API_KEY=your_api_key_here
+   ```
+   <br/>
+5) Install Dependencies <br/>
+   (for backend) <br/>
+   ```
+   cd backend-work
+   pip install -r requirements.txt
+   ```
+   <br/>
+   (for frontend)
+   ```
+   cd frontend
+   npm install
+   ```
+   <br/>
+6) Run the server <br/>
+   (for frontend) <br/>
+   ```
+   cd frontend
+   npm run dev
+   ```
+   (for backend-work) <br/>
+   ```
+   cd backend-work
+   uvicorn app.main:app --host 0.0.0.0 --port 10000 --reload
+   ```
