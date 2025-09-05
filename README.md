@@ -33,7 +33,6 @@ Machine Learning: NLLB-200-Distilled,Random Forest.<br/>
    cd backend-work
    python -m venv venv
    ```
-   <br/>
    source venv/bin/activate  # On macOS/Linux <br/>
    venv\Scripts\activate      # On Windows <br/>
    <br/>
