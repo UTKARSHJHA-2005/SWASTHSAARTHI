@@ -47,7 +47,6 @@ Machine Learning: NLLB-200-Distilled,Random Forest.<br/>
    cd backend-work
    pip install -r requirements.txt
    ```
-   <br/>
    (for frontend)
    ```
    cd frontend
