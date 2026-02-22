@@ -35,9 +35,7 @@ async def predict_disease_from_symptoms(request: SymptomRequest):
     Predicts disease based on symptoms using Gemini AI.
     """
     prompt = f"""
-    You are a medical assistant.
-    Given the symptoms: {request.symptoms},
-    list possible diseases with a short explanation.
+    You are a medical assistant. Given the symptoms: {request.symptoms}, what are the possible diseases?
     """
 
     try:
@@ -64,7 +62,7 @@ async def predict_disease_from_image(file: UploadFile = File(...)):
         image_data = await file.read()
 
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-2.5-flash",
             contents=[
                 "Identify any medical condition, disease, or injury in this image.",
                 {
