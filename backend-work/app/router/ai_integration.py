@@ -1,38 +1,60 @@
 import os
-from dotenv import load_dotenv
 import base64
+from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException, UploadFile, File
 from pydantic import BaseModel
-from google.generativeai import GenerativeModel, configure
+from google import genai
 
 # Initialize FastAPI Router
 router = APIRouter()
+
+# Load environment variables
 load_dotenv()
-# Configure Gemini API
+
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     raise ValueError("GEMINI_API_KEY is not set in environment variables")
 
-configure(api_key=GEMINI_API_KEY)
-gemini_model = GenerativeModel("gemini-1.5-flash")
+# Create Gemini client (NEW SDK)
+client = genai.Client(api_key=GEMINI_API_KEY)
 
-# Pydantic model for symptom-based prediction request
+
+# ----------------------------
+# Pydantic Model
+# ----------------------------
 class SymptomRequest(BaseModel):
     symptoms: str
 
+
+# ----------------------------
+# Symptom-Based Prediction
+# ----------------------------
 @router.post("/predict/symptoms")
 async def predict_disease_from_symptoms(request: SymptomRequest):
     """
     Predicts disease based on symptoms using Gemini AI.
     """
-    prompt = f"Given the symptoms: {request.symptoms}, what are the possible diseases?"
-    
+    prompt = f"""
+    You are a medical assistant.
+    Given the symptoms: {request.symptoms},
+    list possible diseases with a short explanation.
+    """
+
     try:
-        response = gemini_model.generate_content(prompt)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+        )
+
         return {"predicted_disease": response.text}
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error generating response: {str(e)}")
 
+
+# ----------------------------
+# Image-Based Prediction
+# ----------------------------
 @router.post("/predict/image")
 async def predict_disease_from_image(file: UploadFile = File(...)):
     """
@@ -40,12 +62,19 @@ async def predict_disease_from_image(file: UploadFile = File(...)):
     """
     try:
         image_data = await file.read()
-        image_base64 = base64.b64encode(image_data).decode("utf-8")
 
-        response = gemini_model.generate_content(
-            ["Identify any medical condition, disease, or injury in this image:", {"mime_type": "image/jpeg", "data": image_base64}]
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=[
+                "Identify any medical condition, disease, or injury in this image.",
+                {
+                    "mime_type": file.content_type,
+                    "data": image_data,
+                },
+            ],
         )
 
         return {"predicted_disease": response.text}
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing image: {str(e)}")

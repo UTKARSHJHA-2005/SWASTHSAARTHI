@@ -7,7 +7,6 @@ from pydantic import BaseModel
 from app.router import disease_prediction
 from fastapi.middleware.cors import CORSMiddleware
 
-
 app = FastAPI(title="AI Health Chatbot", version="1.0")
 
 app.add_middleware(
