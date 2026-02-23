@@ -31,11 +31,26 @@ class SymptomRequest(BaseModel):
 # ----------------------------
 @router.post("/predict/symptoms")
 async def predict_disease_from_symptoms(request: SymptomRequest):
-    """
-    Predicts disease based on symptoms using Gemini AI.
-    """
+
     prompt = f"""
-    You are a medical assistant. Given the symptoms: {request.symptoms}, what are the possible diseases?
+    You are a medical assistant.
+
+    Detect the language of this text: {request.symptoms}
+
+Then respond in the same language.
+    Return ONLY valid JSON in this exact format:
+
+    {{
+        "disease": "Most likely disease name",
+        "description": "Short explanation (max 80 words)",
+        "severity": 1-5,
+        "precautions": ["3-5 precautions"],
+        "urgency": "emergency | urgent | routine"
+    }}
+
+    DO NOT return text.
+    DO NOT explain.
+    ONLY return JSON.
     """
 
     try:
@@ -44,10 +59,22 @@ async def predict_disease_from_symptoms(request: SymptomRequest):
             contents=prompt,
         )
 
-        return {"predicted_disease": response.text}
+        raw_text = response.text.strip()
+
+        # Clean markdown if Gemini adds it
+        cleaned = (
+            raw_text.replace("```json", "")
+            .replace("```", "")
+            .strip()
+        )
+
+        import json
+        parsed = json.loads(cleaned)
+
+        return parsed
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error generating response: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
 
 
 # ----------------------------
